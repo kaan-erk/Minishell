@@ -29,6 +29,23 @@ void init_env(char **env, t_env **env_list)
     }
 }
 
+void handle_sigint(int sig)
+{
+    (void)sig;
+    write(STDOUT_FILENO, "\n", 1);
+    rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
+}
+
+void setup_signals(void)
+{
+    struct sigaction sa;
+    sa.sa_handler = handle_sigint;
+    sa.sa_flags = SA_RESTART;
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGINT, &sa, NULL);
+}
 
 int main(int argc, char **argv, char **env)
 {
@@ -39,6 +56,7 @@ int main(int argc, char **argv, char **env)
 	t_env    *env_list;
 	env_list = NULL;
 	init_env(env, &env_list);
+    setup_signals();
 	// input = ft_strdup(argv[1]);
 	while (1)
 	{
