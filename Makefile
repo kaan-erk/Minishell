@@ -10,6 +10,9 @@ SRCS =	src/minishell.c \
 		src/pars/pars_utils.c \
 		src/built_in/built.c \
 		src/built_in/built_utils.c \
+		src/built_in/built_func.c \
+		src/built_in/built_export.c \
+		src/built_in/built_export_func.c \
 		src/utils/utils.c \
 		libft/libft.a \
 

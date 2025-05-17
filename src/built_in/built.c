@@ -85,20 +85,18 @@ static int	builtin_exit(char **args, char *input) //void olsa da olur
 	exit(exit_code);
 }
 
-void	built(char **args, char *input)
+void	built(char **args, char *input, t_env **env)
 {
 	if (args[0] && ft_strncmp(args[0], "exit", 4) == 0 && args[0][4] == '\0')
 		builtin_exit(args, input);
 	else if (args[0] && ft_strncmp(args[0], "cd", 2) == 0 && args[0][2] == '\0')
 		builtin_cd(args);
-	// else if (args[0] && ft_strncmp(args[0], "env", 3) == 0 && args[0][3] == '\0')
-	// 	builtin_env(args);
-	// else if (args[0] && ft_strncmp(args[0], "export", 6) == 0 && args[0][6] == '\0')
-	// 	builtin_export(args);
-	// else if (args[0] && ft_strncmp(args[0], "unset", 5) == 0 && args[0][5] == '\0')
-	// 	builtin_unset(args);
+	else if (args[0] && ft_strncmp(args[0], "env", 3) == 0 && args[0][3] == '\0')
+		builtin_env((*env));
+	else if (args[0] && ft_strncmp(args[0], "export", 6) == 0 && args[0][6] == '\0')
+		builtin_export(args, env);
+	else if (args[0] && ft_strncmp(args[0], "unset", 5) == 0 && args[0][5] == '\0')
+		builtin_unset(args[1], env);
 	else if (args[0] && ft_strncmp(args[0], "pwd", 3) == 0 && args[0][3] == '\0')
 		builtin_pwd();
-	// else if (args[0] && ft_strncmp(args[0], "echo", 4) == 0 && args[0][4] == '\0')
-	//  	builtin_echo(args);
 }
